@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #182533;
+            color: #ffffff;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 320px;
+            background: #202b36;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        h3 {
+            margin: 0 0 10px 0;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #7da5ca;
+        }
+
+        .emoji-display {
+            font-size: 48px;
+            margin: 15px 0;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.1s ease;
+        }
+
+        .status-text {
+            font-size: 16px;
+            font-weight: bold;
+            color: #efeec8;
+            margin-bottom: 20px;
+            height: 20px;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #2b394a;
+            border-radius: 3px;
+            outline: none;
+            margin: 0;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #5288c1;
+            cursor: pointer;
+            transition: background 0.1s ease, transform 0.1s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        }
+
+        input[type="range"]::-webkit-slider-thumb:active {
+            background: #6ab3f8;
+            transform: scale(1.1);
+        }
+
+        .labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #6c7883;
+            padding: 0 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h3>Насколько ты блюешь?</h3>
+    <div class="emoji-display" id="emoji">😐</div>
+    <div class="status-text" id="status">Свеж и бодр</div>
+
+    <div class="slider-wrapper">
+        <input type="range" id="pukeSlider" min="0" max="4" value="0">
+    </div>
+    
+    <div class="labels">
+        <span>Вообще нет</span>
+        <span>Критически</span>
+    </div>
+</div>
+
+<script>
+    const slider = document.getElementById('pukeSlider');
+    const emojiDiv = document.getElementById('emoji');
+    const statusDiv = document.getElementById('status');
+
+    const states = [
+        { emoji: '😐', text: 'Свеж и бодр', scale: 1.0 },
+        { emoji: '🤢', text: 'Слегка подташнивает', scale: 1.1 },
+        { emoji: '🤮', text: 'Процесс пошёл!', scale: 1.2 },
+        { emoji: '🌊🤮', text: 'Удерживайте фонтан!', scale: 1.3 },
+        { emoji: '💀', text: 'Уже нечем...', scale: 1.4 }
+    ];
+
+    slider.addEventListener('input', (e) => {
+        const val = e.target.value;
+        const state = states[val];
+        
+        emojiDiv.textContent = state.emoji;
+        statusDiv.textContent = state.text;
+        emojiDiv.style.transform = scale(${state.scale});
+    });
+</script>
+
+</body>
+</html>
